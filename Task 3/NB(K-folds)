@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.model_selection import train_test_split, cross_val_score,KFold, cross_val_predict
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score, classification_report
 import joblib
@@ -22,6 +22,11 @@ Also important to note that SciKit uses log likelihood when calculating
 
 k = 10
 cross_validation_scores = cross_val_score(model, X, Y, cv=k, scoring = 'f1_macro')
+kf = KFold(n_splits=k, shuffle=True, random_state=42)
+Y_pred = cross_val_predict(model, X, Y, cv=kf)
+print("Predictions:")
+print(Y_pred)
+
 
 # Print the F1 scores for each fold
 print(f"Macro F1 scores for {k} folds: {cross_validation_scores}")
