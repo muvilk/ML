@@ -37,3 +37,15 @@ print(f"Average Macro F1 score: {average_score}")
 
 #5-folds: Average Macro F1 score: 0.6678869615960173
 #10 folds: Average Macro F1 score: 0.6727390293748341
+
+test = pd.read_csv("Data/test_tfidf_features.csv")
+X_test = test.drop(['id'], axis=1).values
+
+y_test_pred = 
+predictions_df = pd.DataFrame({'id': test['id'], 'label': y_pred})
+
+# Display the first few rows of the predictions
+print(predictions_df.head())
+
+# Save predictions to a CSV file
+predictions_df.to_csv('predictions.csv', index=False)
