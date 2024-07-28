@@ -1,32 +1,31 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split, cross_val_score,KFold, cross_val_predict
+from sklearn.model_selection import train_test_split, cross_val_score, KFold, cross_val_predict
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, f1_score
 import joblib
 
-#loading the data
+# Loading the training data
 data = pd.read_csv('Data/train_tfidf_features.csv')
-#print(data.head())  #test
-X = data.drop(columns=['id','label'])
+X = data.drop(columns=['id', 'label'])
 Y = data['label']
 
-#Initialise the model: 
+# Initialize the model
 model = MultinomialNB()
 '''
-has 2 main parameters(alpha and fit_prior)
-alpha is the smoothing parameter, prevents model from assigning 0 probability to unseen words
-adds alpha to count when calculating conditional probability. (default =1 )
-fit_prior is a boolean that sets such that model will calculate likelihood and probability of each feature/class from the given training set. (default = True)
+MultinomialNB has 2 main parameters (alpha and fit_prior)
+alpha is the smoothing parameter, preventing the model from assigning 0 probability to unseen words
+adds alpha to count when calculating conditional probability. (default =1)
+fit_prior is a boolean that sets whether the model will calculate prior probabilities from the training set. (default = True)
 Also important to note that SciKit uses log likelihood when calculating 
 '''
 
-k = 10
-cross_validation_scores = cross_val_score(model, X, Y, cv=k, scoring = 'f1_macro')
+# Perform K-Fold cross-validation
+k = 5
 kf = KFold(n_splits=k, shuffle=True, random_state=42)
-Y_pred = cross_val_predict(model, X, Y, cv=kf)
-print("Predictions:")
-print(Y_pred)
+cross_validation_scores = cross_val_score(model, X, Y, cv=kf, scoring='f1_macro')
 
+# Predict with cross-validation
+Y_pred = cross_val_predict(model, X, Y, cv=kf)
 
 # Print the F1 scores for each fold
 print(f"Macro F1 scores for {k} folds: {cross_validation_scores}")
@@ -35,17 +34,18 @@ print(f"Macro F1 scores for {k} folds: {cross_validation_scores}")
 average_score = cross_validation_scores.mean()
 print(f"Average Macro F1 score: {average_score}")
 
-#5-folds: Average Macro F1 score: 0.6678869615960173
-#10 folds: Average Macro F1 score: 0.6727390293748341
-
+# Load the test data
 test = pd.read_csv("Data/test_tfidf_features.csv")
-X_test = test.drop(['id'], axis=1).values
+X_test = test.drop(['id'], axis=1)
 
-y_test_pred = 
-predictions_df = pd.DataFrame({'id': test['id'], 'label': y_pred})
+# Fit the model on the entire training data
+model.fit(X, Y)
 
-# Display the first few rows of the predictions
-print(predictions_df.head())
+# Make predictions on the test data
+y_test_pred = model.predict(X_test)
+
+# Create a DataFrame with predictions
+predictions_df = pd.DataFrame({'id': test['id'], 'label': y_test_pred})
 
 # Save predictions to a CSV file
 predictions_df.to_csv('predictions.csv', index=False)
