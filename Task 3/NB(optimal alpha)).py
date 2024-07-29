@@ -9,12 +9,13 @@ import matplotlib.pyplot as plt
 train_file_path = 'Data/train_tfidf_features.csv'  # Path to the training CSV file
 train_data = pd.read_csv(train_file_path)
 
+
 # Step 2: Extract Features and Labels
 X_train = train_data.drop(columns=['id', 'label'])  # Drop 'id' and 'label' columns to get features
 Y_train = train_data['label']  # Extract the 'label' column as target labels
 
 # Step 3: Set Up a Detailed Hyperparameter Grid for Alpha
-alpha_values = np.arange(0.2, 0.3, 0.005)  # More detailed range of alpha values
+alpha_values = np.arange(0.01, 1, 0.01)  # More detailed range of alpha values
 
 # Step 4: Perform K-Fold Cross-Validation for Each Alpha
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
