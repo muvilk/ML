@@ -22,11 +22,13 @@ Y_train = train_data['label']  # Extract the 'label' column as target labels
 
 X_test = test_data.drop(columns=['id'])  # Drop 'id' columns to get features
 
-# Step 3: Initialize and Train the Model with alpha=1
-model = MultinomialNB(alpha=1.0)
+# Step 3: Initialize and Train the Model with alpha=0.26
+model = MultinomialNB(alpha=0.26)
+print("training")
 model.fit(X_train, Y_train)
 
 # Step 4: Make Predictions on the Test Data
+print("predicting")
 Y_pred = model.predict(X_test)
 
 predictions_df = pd.DataFrame({'id': test_data['id'], 'label': Y_pred})
