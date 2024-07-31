@@ -10,7 +10,7 @@ X = data.drop(columns=['id', 'label'])
 Y = data['label']
 
 # Initialize the model
-model = MultinomialNB()
+model = MultinomialNB(alpha = 0.26)
 '''
 MultinomialNB has 2 main parameters (alpha and fit_prior)
 alpha is the smoothing parameter, preventing the model from assigning 0 probability to unseen words
