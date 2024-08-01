@@ -39,6 +39,3 @@ macro_f1 = f1_score(y_test, y_pred, average='macro')
 print(f'Accuracy: {accuracy * 100:.2f}%')
 print(f'Macro F1 Score: {macro_f1:.2f}')
 
-# Output PCA components for visualization (optional)
-print('PCA Components:')
-print(X_pca)

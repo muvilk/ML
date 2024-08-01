@@ -4,12 +4,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 # Load training data
-data = pd.read_csv("C:/Users/muvil/Documents/Muvil/SUTD/Term 5/50.007 Machine Learning/Project/Data/train_tfidf_features.csv")
+data = pd.read_csv("Data/train_tfidf_features.csv")
 X_features = data.drop(['label', 'id'], axis=1).values
 Y_label = data['label'].values
 
 # Load test data
-test = pd.read_csv("C:/Users/muvil/Documents/Muvil/SUTD/Term 5/50.007 Machine Learning/Project/Data/test_tfidf_features.csv")
+test = pd.read_csv("Data/test_tfidf_features.csv")
 X_test = test.drop(['id'], axis=1).values
 
 # Split the data into training and testing sets
