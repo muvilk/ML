@@ -10,12 +10,6 @@ test_file_path = 'Data/test_tfidf_features.csv'  # Path to the test CSV file
 train_data = pd.read_csv(train_file_path)
 test_data = pd.read_csv(test_file_path)
 
-# Display the first few rows to confirm the structure
-print("Training Data:")
-print(train_data.head())
-print("\nTest Data:")
-print(test_data.head())
-
 # Step 2: Extract Features and Labels
 X_train = train_data.drop(columns=['id', 'label'])  # Drop 'id' and 'label' columns to get features
 Y_train = train_data['label']  # Extract the 'label' column as target labels
@@ -28,11 +22,11 @@ print("training")
 model.fit(X_train, Y_train)
 
 # Step 4: Make Predictions on the Test Data
-print("predicting")
+print("NB predicting")
 Y_pred = model.predict(X_test)
 
 predictions_df = pd.DataFrame({'id': test_data['id'], 'label': Y_pred})
 # Save the DataFrame to a CSV file
-predictions_df.to_csv('predictions.csv', index=False)
+predictions_df.to_csv('Optimal_NB.csv', index=False)
 
 
