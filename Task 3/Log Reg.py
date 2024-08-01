@@ -163,7 +163,7 @@ def optimize_bagging(X_features, Y_label):
     return best_model, best_f1
 
 # Load the training data (replace with your actual data loading logic)
-data = pd.read_csv("C:/Users/muvil/Documents/Muvil/SUTD/Term 5/50.007 Machine Learning/Project/Data/train_tfidf_features.csv")
+data = pd.read_csv("Data/train_tfidf_features.csv")
 X_features = data.drop(['label', 'id'], axis=1).values
 Y_label = data['label'].values
 
@@ -172,7 +172,7 @@ best_model, best_f1_score = optimize_bagging(X_features, Y_label)
 best_w, best_b = best_model
 
 # Load the test data and first set of predictions
-test = pd.read_csv("C:/Users/muvil/Documents/Muvil/SUTD/Term 5/50.007 Machine Learning/Project/Data/test_tfidf_features.csv")
+test = pd.read_csv("Data/test_tfidf_features.csv")
 
 # Predict on the test data using the best model
 X_test = test.drop(columns=['id']).values
@@ -187,9 +187,9 @@ predictions_df = pd.DataFrame({
 # Display the first few rows of the final predictions
 print(predictions_df.head())
 
-predictions_df.to_csv('muvil_predictions.csv', index=False)
+predictions_df.to_csv('Optimal_LogReg_predictions.csv', index=False)
 
 # Completed Print
-print("Final predictions saved to muvil_predictions.csv")
+print("Final predictions saved to Optimal_LogReg_predictions.csv")
 
 #Model 3 Trained with LR: 0.1, BS: 32, F1 Score: 0.7008
